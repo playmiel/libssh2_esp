@@ -1,0 +1,32 @@
+{
+    "name": "libssh2-esp32",
+    "version": "1.0.0",
+    "description": "Port of libssh2 for ESP32 Arduino framework",
+    "keywords": "ssh, esp32, arduino",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/playmiel/libssh2_esp.git"
+    },
+    "authors": [
+        {
+            "name": "Original libssh2 authors",
+            "maintainer": true
+        }
+    ],
+    "license": "BSD-3-Clause",
+    "frameworks": "arduino",
+    "platforms": "espressif32",
+    "build": {
+        "srcDir": ".",
+        "includeDir": ".",
+        "flags": [
+            "-DHAVE_CONFIG_H",
+            "-DHAVE_LIBSSL",
+            "-DHAVE_OPENSSL_CRYPTO_H",
+            "-DHAVE_OPENSSL_SSL_H"
+        ]
+    },
+    "dependencies": {
+        "openssl": "^1.1.1"
+    }
+} 

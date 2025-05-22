@@ -38,41 +38,39 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "compat.h"
-
 /* Headers */
-#define HAVE_UNISTD_H
-#define HAVE_INTTYPES_H
-#define HAVE_SYS_SELECT_H
-/* #undef HAVE_SYS_UIO_H */
-/* #undef HAVE_SYS_SOCKET_H */
-/* #undef HAVE_SYS_IOCTL_H */
-#define HAVE_SYS_TIME_H
-/* #undef HAVE_SYS_UN_H */
+#cmakedefine HAVE_UNISTD_H
+#cmakedefine HAVE_INTTYPES_H
+#cmakedefine HAVE_SYS_SELECT_H
+#cmakedefine HAVE_SYS_UIO_H
+#cmakedefine HAVE_SYS_SOCKET_H
+#cmakedefine HAVE_SYS_IOCTL_H
+#cmakedefine HAVE_SYS_TIME_H
+#cmakedefine HAVE_SYS_UN_H
 
 /* for example and tests */
-/* #undef HAVE_ARPA_INET_H */
-/* #undef HAVE_NETINET_IN_H */
+#cmakedefine HAVE_ARPA_INET_H
+#cmakedefine HAVE_NETINET_IN_H
 
 /* Functions */
-#define HAVE_GETTIMEOFDAY
-#define HAVE_STRTOLL
-/* #undef HAVE_STRTOI64 */
-#define HAVE_SNPRINTF
-#define HAVE_EXPLICIT_BZERO
-/* #undef HAVE_EXPLICIT_MEMSET */
-/* #undef HAVE_MEMSET_S */
+#cmakedefine HAVE_GETTIMEOFDAY
+#cmakedefine HAVE_STRTOLL
+#cmakedefine HAVE_STRTOI64
+#cmakedefine HAVE_SNPRINTF
+#cmakedefine HAVE_EXPLICIT_BZERO
+#cmakedefine HAVE_EXPLICIT_MEMSET
+#cmakedefine HAVE_MEMSET_S
 
-/* #undef HAVE_POLL */
-/* #undef HAVE_SELECT */
+#cmakedefine HAVE_POLL
+#cmakedefine HAVE_SELECT
 
 /* Socket non-blocking support */
-#define HAVE_O_NONBLOCK
-/* #undef HAVE_FIONBIO */
-/* #undef HAVE_IOCTLSOCKET_CASE */
-/* #undef HAVE_SO_NONBLOCK */
+#cmakedefine HAVE_O_NONBLOCK
+#cmakedefine HAVE_FIONBIO
+#cmakedefine HAVE_IOCTLSOCKET_CASE
+#cmakedefine HAVE_SO_NONBLOCK
 
 /* attribute to export symbol */
 #if defined(LIBSSH2_EXPORTS) && defined(LIBSSH2_LIBRARY)
-/* #undef LIBSSH2_API */
+#cmakedefine LIBSSH2_API ${LIBSSH2_API}
 #endif
