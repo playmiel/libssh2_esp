@@ -5,60 +5,60 @@
 
 # libssh2-esp32
 
-Port de la bibliothèque libssh2 pour ESP32 avec le framework Arduino.
+Port of the libssh2 library for ESP32 with Arduino framework.
 
 ## Installation
 
 ### Via PlatformIO
 
-1. Créez un nouveau projet PlatformIO ou ouvrez un projet existant
-2. Ajoutez la dépendance dans votre `platformio.ini` :
+1. Create a new PlatformIO project or open an existing one
+2. Add the dependency in your `platformio.ini`:
 
 ```ini
 lib_deps =
-    libssh2-esp32
+    https://github.com/playmiel/libssh2_esp.git
 ```
 
-### Manuellement
+### Manually
 
-1. Clonez ce dépôt dans votre dossier `libraries` Arduino :
+1. Clone this repository in your Arduino `libraries` folder:
 ```bash
 cd ~/Arduino/libraries
-git clone https://github.com/yourusername/libssh2_esp.git
+git clone https://github.com/playmiel/libssh2_esp.git
 ```
 
 ## Configuration
 
-Cette bibliothèque nécessite OpenSSL pour fonctionner. Assurez-vous d'avoir la bibliothèque OpenSSL installée dans votre projet PlatformIO.
+This library requires OpenSSL to function. Make sure you have the OpenSSL library installed in your PlatformIO project.
 
-## Utilisation
+## Usage
 
 ```cpp
 #include <libssh2.h>
 
 void setup() {
-    // Initialisation de libssh2
+    // Initialize libssh2
     int rc = libssh2_init(0);
     if (rc != 0) {
-        Serial.println("Échec de l'initialisation de libssh2");
+        Serial.println("Failed to initialize libssh2");
         return;
     }
 }
 
 void loop() {
-    // Votre code ici
+    // Your code here
 }
 ```
 
-## Compatibilité
+## Compatibility
 
 - ESP32
 - Arduino framework
 - PlatformIO
 
-## Licence
+## License
 
-Cette bibliothèque est sous licence BSD-3-Clause.
+This library is licensed under BSD-3-Clause.
 
 </div>
 
