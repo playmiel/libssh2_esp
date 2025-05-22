@@ -67,9 +67,9 @@
    While arguable the best would to change libssh2.h to use other names, that
    would break backwards compatibility.
 */
-#include <sys/poll.h>
+
 #ifdef HAVE_POLL
-# include <poll.h>
+#include <sys/poll.h>
 #elif defined(HAVE_SELECT) && defined(HAVE_SYS_SELECT_H)
 # include <sys/select.h>
 #endif
