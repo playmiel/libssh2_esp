@@ -1,5 +1,7 @@
-/* Copyright (C) Alexander Lamaison <alexander.lamaison@gmail.com>
- * Copyright (C) Douglas Gilbert
+#ifndef LIBSSH2_USERAUTH_H
+#define LIBSSH2_USERAUTH_H
+/* Copyright (C) Sara Golemon <sarag@libssh2.org>
+ * Copyright (C) Daniel Stenberg
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms,
@@ -38,47 +40,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef LIBSSH2_CONFIG_H
-#define LIBSSH2_CONFIG_H
+int
+_libssh2_userauth_publickey(LIBSSH2_SESSION *session,
+                            const char *username,
+                            size_t username_len,
+                            const unsigned char *pubkeydata,
+                            size_t pubkeydata_len,
+                            LIBSSH2_USERAUTH_PUBLICKEY_SIGN_FUNC
+                                ((*sign_callback)),
+                            void *abstract);
 
-/* Enable debug logging if configured */
-#ifdef CONFIG_LIBSSH2_DEBUG_ENABLE
-#define LIBSSH2DEBUG
-#endif
-
-/* Use mbedTLS as crypto engine */
-#define LIBSSH2_MBEDTLS
-
-/* Platform specific includes */
-#include <inttypes.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/select.h>
-#include <sys/uio.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <sys/un.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include "mbedtls/sha512.h"
-
-/* Function availability */
-#define HAVE_GETTIMEOFDAY
-#define HAVE_STRTOLL
-#define HAVE_SNPRINTF
-#define HAVE_POLL
-#define HAVE_SELECT
-
-/* Socket support */
-#define HAVE_SOCKET
-#define HAVE_INET_ADDR
-
-/* Memory functions */
-#define HAVE_EXPLICIT_BZERO
-#define HAVE_EXPLICIT_MEMSET
-#define HAVE_MEMSET_S
-
-/* Required for ESP-IDF */
-#define HAVE_CONFIG_H
-
-#endif /* LIBSSH2_CONFIG_H */
+#endif /* LIBSSH2_USERAUTH_H */
