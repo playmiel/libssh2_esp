@@ -137,7 +137,7 @@ static inline int writev(int sock, struct iovec *iov, int nvecs)
 #define send(s, b, l, f)    send((s), (unsigned char *) (b), (l), (f))
 #endif
 
-#include "crypto.h"
+
 
 #ifdef HAVE_WINSOCK2_H
 
