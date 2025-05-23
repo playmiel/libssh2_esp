@@ -5,3 +5,10 @@ license: "BSD-3-Clause"
 tags:
   - ssh
   - networking
+dependencies:
+  idf:
+    version: ">=4.4.0"
+  mbedtls:
+    version: ">=3.0.0"
+  esp_netif:
+    version: ">=1.0.0"

@@ -37,44 +37,51 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef _LIBSSH2_ESP32_COMPAT_H_
-#define _LIBSSH2_ESP32_COMPAT_H_
+#ifndef LIBSSH2_COMPAT_H
+#define LIBSSH2_COMPAT_H
 
-#include <Arduino.h>
-#include <WiFi.h>
-#include <lwip/sockets.h>
-#include <lwip/netdb.h>
-#include <lwip/inet.h>
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* Platform specific compatibility definitions */
 
-/* Définitions spécifiques à ESP32 */
-#define LIBSSH2_ESP32 1
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#else
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#endif
 
-/* Redéfinition des types si nécessaire */
-typedef int socklen_t;
+/* Socket compatibility */
+#ifndef HAVE_SOCKET
+#define socket(a,b,c) (-1)
+#endif
 
-/* Fonctions de compatibilité */
-#define close(s) lwip_close(s)
-#define read(s, buf, len) lwip_read(s, buf, len)
-#define write(s, buf, len) lwip_write(s, buf, len)
-#define select(n, r, w, e, t) lwip_select(n, r, w, e, t)
-#define ioctl(s, cmd, arg) lwip_ioctl(s, cmd, arg)
+#ifndef HAVE_INET_ADDR
+#define inet_addr(a) (0)
+#endif
 
-/* Gestion des erreurs */
-#define LIBSSH2_ESP32_ERRNO errno
+/* Time compatibility */
+#ifndef HAVE_GETTIMEOFDAY
+#include <time.h>
+#define gettimeofday(tv, tz) do { \
+    time_t t = time(NULL); \
+    (tv)->tv_sec = t; \
+    (tv)->tv_usec = 0; \
+} while(0)
+#endif
 
-/* Configuration de la mémoire */
-#define LIBSSH2_ESP32_MALLOC(s) malloc(s)
-#define LIBSSH2_ESP32_FREE(p) free(p)
+/* Memory compatibility */
+#ifndef HAVE_EXPLICIT_BZERO
+#define explicit_bzero(p, n) memset(p, 0, n)
+#endif
 
-/* Configuration du réseau */
-#define LIBSSH2_ESP32_SOCKET_OPTIONS(s) \
-    do { \
-        int opt = 1; \
-        setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); \
-    } while(0)
+#ifndef HAVE_EXPLICIT_MEMSET
+#define explicit_memset(p, v, n) memset(p, v, n)
+#endif
 
-#endif /* _LIBSSH2_ESP32_COMPAT_H_ */
+#ifndef HAVE_MEMSET_S
+#define memset_s(p, s, v, n) memset(p, v, n)
+#endif
+
+#endif /* LIBSSH2_COMPAT_H */

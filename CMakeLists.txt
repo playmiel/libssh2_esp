@@ -161,7 +161,6 @@ cmake_pop_check_state()
 
 add_definitions("-DHAVE_CONFIG_H")
 
-# Uncomment the following two lines to generate libssh2_config.h, then comment
-# them out and add #include "compat.h" to libssh2_config.h
-# configure_file("libssh2/src/libssh2_config_cmake.h.in"
-#   "${CMAKE_CURRENT_SOURCE_DIR}/libssh2_config.h")
+# Generate libssh2_config.h from template
+configure_file("libssh2/src/libssh2_config_cmake.h.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/libssh2_config.h")

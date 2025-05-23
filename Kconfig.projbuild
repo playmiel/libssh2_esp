@@ -1,0 +1,15 @@
+menu "libssh2 Configuration"
+
+    config LIBSSH2_DEBUG_ENABLE
+        bool "Enable debug logging"
+        default n
+        help
+            Enable debug logging for libssh2.
+
+    config LIBSSH2_CRYPTO_ENGINE_MBEDTLS
+        bool "Use mbedTLS as crypto engine"
+        default y
+        help
+            Use mbedTLS as the cryptographic engine for libssh2.
+
+endmenu 

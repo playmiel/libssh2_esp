@@ -41,78 +41,43 @@
 #ifndef LIBSSH2_CONFIG_H
 #define LIBSSH2_CONFIG_H
 
-/* Configuration ESP32 */
-#define LIBSSH2_ESP32 1
-
-/* Headers */
-#define HAVE_UNISTD_H 1
-#define HAVE_INTTYPES_H 1
-#define HAVE_STDLIB_H 1
-#define HAVE_STRING_H 1
-#define HAVE_STRINGS_H 1
-#define HAVE_SYS_SOCKET_H 1
-#define HAVE_SYS_TIME_H 1
-#define HAVE_SYS_UN_H 1
-#define HAVE_SYS_IOCTL_H 1
-#define HAVE_SYS_POLL_H 1
-#define HAVE_SYS_SELECT_H 1
-#define HAVE_SYS_UIO_H 1
-#define HAVE_SYS_TYPES_H 1
-#define HAVE_SYS_STAT_H 1
-#define HAVE_NETINET_IN_H 1
-#define HAVE_ARPA_INET_H 1
-#define HAVE_NETDB_H 1
-#define HAVE_FCNTL_H 1
-#define HAVE_ERRNO_H 1
-#define HAVE_TIME_H 1
-#define HAVE_STDIO_H 1
-#define HAVE_CTYPE_H 1
-#define HAVE_CRYPT_H 1
-#define HAVE_SYS_PARAM_H 1
-
-/* Fonctions */
-#define HAVE_GETTIMEOFDAY 1
-#define HAVE_INET_ADDR 1
-#define HAVE_INET_NTOA 1
-#define HAVE_INET_NTOA_R 1
-#define HAVE_SOCKET 1
-#define HAVE_SELECT 1
-#define HAVE_POLL 1
-#define HAVE_STRTOLL 1
-#define HAVE_STRTOI64 1
-#define HAVE_STRERROR_R 1
-#define HAVE_SNPRINTF 1
-#define HAVE_VSNPRINTF 1
-#define HAVE_GETADDRINFO 1
-#define HAVE_GETNAMEINFO 1
-
-/* Support des sockets non-bloquants */
-#define HAVE_O_NONBLOCK 1
-
-/* Configuration OpenSSL */
-#define HAVE_LIBSSL 1
-#define HAVE_OPENSSL_CRYPTO_H 1
-#define HAVE_OPENSSL_SSL_H 1
-
-/* Désactiver les fonctionnalités non utilisées pour économiser de l'espace */
-#define LIBSSH2_HAVE_ZLIB 0
-#define LIBSSH2_HAVE_LIBGCRYPT 0
-#define LIBSSH2_HAVE_LIBMBEDCRYPTO 0
-
-/* Activer le logging de debug si nécessaire */
-#ifdef DEBUG
-#define LIBSSH2DEBUG 1
+/* Enable debug logging if configured */
+#ifdef CONFIG_LIBSSH2_DEBUG_ENABLE
+#define LIBSSH2DEBUG
 #endif
 
-/* Configuration de la mémoire */
-#define LIBSSH2_ESP32_MALLOC(s) malloc(s)
-#define LIBSSH2_ESP32_FREE(p) free(p)
+/* Use mbedTLS as crypto engine */
+#define LIBSSH2_MBEDTLS
 
-/* Configuration du réseau */
-#define LIBSSH2_ESP32_SOCKET_OPTIONS(s) \
-    do { \
-        int opt = 1; \
-        setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); \
-    } while(0)
+/* Platform specific includes */
+#include <inttypes.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <sys/select.h>
+#include <sys/uio.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <sys/un.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+
+/* Function availability */
+#define HAVE_GETTIMEOFDAY
+#define HAVE_STRTOLL
+#define HAVE_SNPRINTF
+#define HAVE_POLL
+#define HAVE_SELECT
+
+/* Socket support */
+#define HAVE_SOCKET
+#define HAVE_INET_ADDR
+
+/* Memory functions */
+#define HAVE_EXPLICIT_BZERO
+#define HAVE_EXPLICIT_MEMSET
+#define HAVE_MEMSET_S
+
+/* Required for ESP-IDF */
+#define HAVE_CONFIG_H
 
 #endif /* LIBSSH2_CONFIG_H */
