@@ -1,38 +1,37 @@
 set(LIBSSH2_DIR libssh2)
 
-set(CSOURCES    ${LIBSSH2_DIR}/src/agent.c
-                ${LIBSSH2_DIR}/src/bcrypt_pbkdf.c
-                ${LIBSSH2_DIR}/src/channel.c
-                ${LIBSSH2_DIR}/src/comp.c
-                ${LIBSSH2_DIR}/src/chacha.c
-                ${LIBSSH2_DIR}/src/cipher-chachapoly.c
-                ${LIBSSH2_DIR}/src/crypt.c
-                ${LIBSSH2_DIR}/src/crypto.c
-                ${LIBSSH2_DIR}/src/global.c
-                ${LIBSSH2_DIR}/src/hostkey.c
-                ${LIBSSH2_DIR}/src/keepalive.c
-                ${LIBSSH2_DIR}/src/kex.c
-                ${LIBSSH2_DIR}/src/knownhost.c
-                ${LIBSSH2_DIR}/src/mac.c
-                ${LIBSSH2_DIR}/src/misc.c
-                ${LIBSSH2_DIR}/src/packet.c
-                ${LIBSSH2_DIR}/src/pem.c
-                ${LIBSSH2_DIR}/src/poly1305.c
-                ${LIBSSH2_DIR}/src/publickey.c
-                ${LIBSSH2_DIR}/src/scp.c
-                ${LIBSSH2_DIR}/src/session.c
-                ${LIBSSH2_DIR}/src/sftp.c
-                ${LIBSSH2_DIR}/src/transport.c
-                ${LIBSSH2_DIR}/src/userauth.c
-                ${LIBSSH2_DIR}/src/userauth_kbd_packet.c
-                ${LIBSSH2_DIR}/src/version.c
+set(CSOURCES    src/agent.c
+                src/bcrypt_pbkdf.c
+                src/channel.c
+                src/comp.c
+                src/chacha.c
+                src/cipher-chachapoly.c
+                src/crypt.c
+                src/crypto.c
+                src/global.c
+                src/hostkey.c
+                src/keepalive.c
+                src/kex.c
+                src/knownhost.c
+                src/mac.c
+                src/misc.c
+                src/packet.c
+                src/pem.c
+                src/poly1305.c
+                src/publickey.c
+                src/scp.c
+                src/session.c
+                src/sftp.c
+                src/transport.c
+                src/userauth.c
+                src/userauth_kbd_packet.c
+                src/version.c
                 
-                ${LIBSSH2_DIR}/src/blowfish.c
-                ${LIBSSH2_DIR}/src/mbedtls.c
+                src/blowfish.c
+                src/mbedtls.c
                 )
 
-set(INCLUDES    ${LIBSSH2_DIR}/src
-                ${LIBSSH2_DIR}/include
+set(INCLUDES    src
                 .)
 
 idf_component_register( SRCS ${CSOURCES}
@@ -59,7 +58,7 @@ if(logging)
   set(DEBUG_LOGGING_DEFAULT ON)
 endif()
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libssh2/cmake" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src" ${CMAKE_MODULE_PATH})
 
 include(CheckFunctionExists)
 include(CheckSymbolExists)
@@ -69,7 +68,7 @@ include(FeatureSummary)
 include(CheckFunctionExistsMayNeedLibrary)
 include(CheckNonblockingSocketSupport)
 
-file(READ "libssh2/include/libssh2.h" _header_contents)
+file(READ "src/libssh2.h" _header_contents)
 string(REGEX REPLACE ".*#define LIBSSH2_VERSION[ \t]+\"([^\"]+)\".*" "\\1" LIBSSH2_VERSION "${_header_contents}")
 string(REGEX REPLACE ".*#define LIBSSH2_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" LIBSSH2_VERSION_MAJOR "${_header_contents}")
 string(REGEX REPLACE ".*#define LIBSSH2_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" LIBSSH2_VERSION_MINOR "${_header_contents}")
@@ -80,7 +79,7 @@ if(NOT LIBSSH2_VERSION OR
    NOT LIBSSH2_VERSION_MAJOR MATCHES "^[0-9]+$" OR
    NOT LIBSSH2_VERSION_MINOR MATCHES "^[0-9]+$" OR
    NOT LIBSSH2_VERSION_PATCH MATCHES "^[0-9]+$")
-  message(FATAL_ERROR "Unable to parse version from libssh2/include/libssh2.h")
+  message(FATAL_ERROR "Unable to parse version from src/libssh2.h")
 endif()
 
 set(LIBSSH2_LIBS_SOCKET "")
@@ -162,5 +161,5 @@ cmake_pop_check_state()
 add_definitions("-DHAVE_CONFIG_H")
 
 # Generate libssh2_config.h from template
-configure_file("libssh2/src/libssh2_config_cmake.h.in"
-  "${CMAKE_CURRENT_SOURCE_DIR}/libssh2_config.h")
+configure_file("src/libssh2_config_cmake.h.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/libssh2_config.h")
