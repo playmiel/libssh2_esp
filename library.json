@@ -9,7 +9,7 @@
     },
     "authors": [
         {
-            "name": "Original libssh2 authors",
+            "name": "fork libssh2 authors",
             "maintainer": true
         }
     ],
@@ -25,8 +25,7 @@
             "-DHAVE_OPENSSL_CRYPTO_H",
             "-DHAVE_OPENSSL_SSL_H"
         ]
-    },
-    "dependencies": {
-        "openssl": "^1.1.1"
     }
+
+    
 } 
