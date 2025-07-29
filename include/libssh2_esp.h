@@ -12,31 +12,16 @@
 #ifndef LIBSSH2_ESP_H
 #define LIBSSH2_ESP_H
 
+// Framework detection and configuration (must be included first)
+#include "framework_detection.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Framework detection and configuration
-#include "framework_detection.h"
-
 // Core libssh2 includes
 #include "libssh2.h"
 #include "libssh2_sftp.h"
-
-// Platform-specific network includes
-#ifdef LIBSSH2_ESP_ARDUINO
-    #ifdef __cplusplus
-        #include <WiFi.h>
-        #include <WiFiClient.h>
-    #else
-        // C-compatible includes for Arduino
-        #include <lwip/sockets.h>
-    #endif
-#elif defined(LIBSSH2_ESP_IDF)
-    #include "esp_wifi.h"
-    #include "lwip/sockets.h"
-    #include "lwip/netdb.h"
-#endif
 
 /**
  * @brief Initialize libssh2 for ESP32
