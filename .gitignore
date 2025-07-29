@@ -1,2 +1,4 @@
 examples/*/build
 examples/*/dependencies.lock
+examples/*/.pio
+examples/*/managed_components

@@ -22,9 +22,6 @@
   "frameworks": ["arduino", "espidf"],
   "platforms": ["espressif32"],
   "headers": "libssh2_esp.h",
-  "dependencies": {
-    "mbedtls": "*"
-  },
   "build": {
     "includeDir": "include",
     "srcDir": "src",
