@@ -166,7 +166,9 @@ struct _LIBSSH2_AGENT
 #endif
 };
 
+#ifdef HAVE_WIN32_AGENTS
 #include "agent_win.c"
+#endif
 
 #ifdef PF_UNIX
 static int
@@ -438,7 +440,6 @@ static struct {
 } supported_backends[] = {
 #ifdef HAVE_WIN32_AGENTS
     {"Pageant", &agent_ops_pageant},
-    {"OpenSSH", &agent_ops_openssh},
 #endif /* HAVE_WIN32_AGENTS */
 #ifdef PF_UNIX
     {"Unix", &agent_ops_unix},
