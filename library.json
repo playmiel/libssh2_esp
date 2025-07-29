@@ -1,0 +1,63 @@
+{
+  "name": "libssh2_esp",
+  "version": "1.1.0",
+  "description": "libssh2 port for ESP32 with Arduino and ESP-IDF framework support (integrated directly)",
+  "keywords": ["ssh", "libssh2", "esp32", "networking", "security", "arduino", "espidf"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playmiel/libssh2_esp.git"
+  },
+  "authors": [
+    {
+      "name": "skuodi",
+      "maintainer": true
+    },
+    {
+      "name": "playmiel",
+      "maintainer": true
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/playmiel/libssh2_esp",
+  "frameworks": ["arduino", "espidf"],
+  "platforms": ["espressif32"],
+  "headers": "libssh2_esp.h",
+  "dependencies": {
+    "mbedtls": "*"
+  },
+  "build": {
+    "includeDir": "include",
+    "srcDir": "src",
+    "flags": [
+      "-DLIBSSH2_MBEDTLS",
+      "-DHAVE_LIBSSH2_H",
+      "-DLIBSSH2_NO_ZLIB",
+      "-DHAVE_CONFIG_H"
+    ],
+    "srcFilter": [
+      "+<*>",
+      "-<examples/>",
+      "-<test*>",
+      "-<*.md>",
+      "-<*.py>",
+      "-<*.sh>"
+    ]
+  },
+  "export": {
+    "include": [
+      "include/*",
+      "src/*.h"
+    ],
+    "exclude": [
+      "examples",
+      "test*",
+      "*.md",
+      "*.py",
+      "*.sh",
+      "PLAN_*",
+      "ANALYSE_*",
+      "RECOMMANDATION_*",
+      "IMPLEMENTATION_*"
+    ]
+  }
+}

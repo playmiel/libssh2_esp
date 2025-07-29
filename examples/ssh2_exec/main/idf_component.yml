@@ -1,8 +1,0 @@
-version: "1.0.0"
-dependencies:
-  skuodi/libssh2_esp:
-    version: '~1.0.0'
-    override_path: '../../../'
-  protocol_examples_common:
-    path: ${IDF_PATH}/examples/common_components/protocol_examples_common
-  joltwallet/littlefs: "~=1.16.4"

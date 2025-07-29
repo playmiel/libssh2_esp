@@ -1,40 +1,55 @@
-set(LIBSSH2_DIR libssh2)
+# libssh2_esp - Dual Framework Support (Arduino + ESP-IDF)
+# This CMakeLists.txt supports both PlatformIO/Arduino and native ESP-IDF builds
+# libssh2 is now integrated directly (no submodule)
 
-set(CSOURCES    ${LIBSSH2_DIR}/src/agent.c
-                ${LIBSSH2_DIR}/src/bcrypt_pbkdf.c
-                ${LIBSSH2_DIR}/src/channel.c
-                ${LIBSSH2_DIR}/src/comp.c
-                ${LIBSSH2_DIR}/src/chacha.c
-                ${LIBSSH2_DIR}/src/cipher-chachapoly.c
-                ${LIBSSH2_DIR}/src/crypt.c
-                ${LIBSSH2_DIR}/src/crypto.c
-                ${LIBSSH2_DIR}/src/global.c
-                ${LIBSSH2_DIR}/src/hostkey.c
-                ${LIBSSH2_DIR}/src/keepalive.c
-                ${LIBSSH2_DIR}/src/kex.c
-                ${LIBSSH2_DIR}/src/knownhost.c
-                ${LIBSSH2_DIR}/src/mac.c
-                ${LIBSSH2_DIR}/src/misc.c
-                ${LIBSSH2_DIR}/src/packet.c
-                ${LIBSSH2_DIR}/src/pem.c
-                ${LIBSSH2_DIR}/src/poly1305.c
-                ${LIBSSH2_DIR}/src/publickey.c
-                ${LIBSSH2_DIR}/src/scp.c
-                ${LIBSSH2_DIR}/src/session.c
-                ${LIBSSH2_DIR}/src/sftp.c
-                ${LIBSSH2_DIR}/src/transport.c
-                ${LIBSSH2_DIR}/src/userauth.c
-                ${LIBSSH2_DIR}/src/userauth_kbd_packet.c
-                ${LIBSSH2_DIR}/src/version.c
-                
-                ${LIBSSH2_DIR}/src/blowfish.c
-                ${LIBSSH2_DIR}/src/mbedtls.c
-                )
+# Core libssh2 sources (integrated directly)
+set(CSOURCES    src/agent.c
+                src/bcrypt_pbkdf.c
+                src/channel.c
+                src/comp.c
+                src/chacha.c
+                src/cipher-chachapoly.c
+                src/crypt.c
+                src/crypto.c
+                src/global.c
+                src/hostkey.c
+                src/keepalive.c
+                src/kex.c
+                src/knownhost.c
+                src/mac.c
+                src/misc.c
+                src/packet.c
+                src/pem.c
+                src/poly1305.c
+                src/publickey.c
+                src/scp.c
+                src/session.c
+                src/sftp.c
+                src/transport.c
+                src/userauth.c
+                src/userauth_kbd_packet.c
+                src/version.c
+                src/blowfish.c
+                src/mbedtls.c
+                src/libssh2_esp.c)
 
-set(INCLUDES    ${LIBSSH2_DIR}/src
-                ${LIBSSH2_DIR}/include
+# Include directories (integrated directly)
+set(INCLUDES    src
+                include
                 .)
 
+# Detect build environment
+if(DEFINED ENV{PLATFORMIO_BUILD_DIR})
+    # PlatformIO/Arduino build detected
+    message(STATUS "libssh2_esp: PlatformIO/Arduino build detected")
+    set(LIBSSH2_ESP_ARDUINO ON)
+else()
+    # Native ESP-IDF build
+    message(STATUS "libssh2_esp: ESP-IDF build detected")
+    set(LIBSSH2_ESP_IDF ON)
+endif()
+
+# Register component for ESP-IDF
 idf_component_register( SRCS ${CSOURCES}
                         INCLUDE_DIRS ${INCLUDES}
                         REQUIRES mbedtls esp_netif)
