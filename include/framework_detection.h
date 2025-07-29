@@ -18,13 +18,21 @@
     #define LIBSSH2_ESP_FRAMEWORK "Arduino"
     
     // Arduino-specific includes
-    #include <Arduino.h>
-    #include <WiFi.h>
+    #ifdef __cplusplus
+        #include <Arduino.h>
+        #include <WiFi.h>
+        // Arduino-specific configurations for C++
+        #define LIBSSH2_ESP_LOG(fmt, ...) Serial.printf("[libssh2_esp] " fmt "\n", ##__VA_ARGS__)
+        #define LIBSSH2_ESP_ERROR(fmt, ...) Serial.printf("[libssh2_esp ERROR] " fmt "\n", ##__VA_ARGS__)
+    #else
+        // C-compatible includes for Arduino
+        #include <lwip/sockets.h>
+        #include <stdio.h>
+        // Arduino-specific configurations for C
+        #define LIBSSH2_ESP_LOG(fmt, ...) printf("[libssh2_esp] " fmt "\n", ##__VA_ARGS__)
+        #define LIBSSH2_ESP_ERROR(fmt, ...) printf("[libssh2_esp ERROR] " fmt "\n", ##__VA_ARGS__)
+    #endif
     #include <lwip/sockets.h>
-    
-    // Arduino-specific configurations
-    #define LIBSSH2_ESP_LOG(fmt, ...) Serial.printf("[libssh2_esp] " fmt "\n", ##__VA_ARGS__)
-    #define LIBSSH2_ESP_ERROR(fmt, ...) Serial.printf("[libssh2_esp ERROR] " fmt "\n", ##__VA_ARGS__)
     
 #elif defined(ESP_IDF) || defined(IDF_VER)
     #define LIBSSH2_ESP_IDF

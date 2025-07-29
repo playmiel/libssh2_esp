@@ -25,8 +25,13 @@ extern "C" {
 
 // Platform-specific network includes
 #ifdef LIBSSH2_ESP_ARDUINO
-    #include <WiFi.h>
-    #include <WiFiClient.h>
+    #ifdef __cplusplus
+        #include <WiFi.h>
+        #include <WiFiClient.h>
+    #else
+        // C-compatible includes for Arduino
+        #include <lwip/sockets.h>
+    #endif
 #elif defined(LIBSSH2_ESP_IDF)
     #include "esp_wifi.h"
     #include "lwip/sockets.h"
