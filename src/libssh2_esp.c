@@ -117,37 +117,3 @@ void libssh2_esp_socket_close(int sock) {
         close(sock);
     }
 }
-
-#ifdef LIBSSH2_ESP_ARDUINO
-// Arduino-specific helper functions
-bool libssh2_esp_wifi_connected(void) {
-    return WiFi.status() == WL_CONNECTED;
-}
-
-const char* libssh2_esp_get_local_ip(void) {
-    static char ip_str[16];
-    IPAddress ip = WiFi.localIP();
-    snprintf(ip_str, sizeof(ip_str), "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
-    return ip_str;
-}
-
-#elif defined(LIBSSH2_ESP_IDF)
-// ESP-IDF specific helper functions
-bool libssh2_esp_wifi_connected(void) {
-    wifi_ap_record_t ap_info;
-    return esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK;
-}
-
-const char* libssh2_esp_get_local_ip(void) {
-    static char ip_str[16];
-    esp_netif_ip_info_t ip_info;
-    esp_netif_t *netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-    
-    if (netif && esp_netif_get_ip_info(netif, &ip_info) == ESP_OK) {
-        esp_ip4addr_ntoa(&ip_info.ip, ip_str, sizeof(ip_str));
-        return ip_str;
-    }
-    
-    return "0.0.0.0";
-}
-#endif

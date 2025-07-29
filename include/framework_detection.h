@@ -57,6 +57,7 @@
 
 // Common ESP32 configurations
 #define LIBSSH2_ESP_VERSION "1.1.0"
+#define LIBSSH2_ESP_FRAMEWORK LIBSSH2_ESP_FRAMEWORK
 
 // libssh2 configuration flags
 #ifndef LIBSSH2_MBEDTLS
